@@ -1,5 +1,6 @@
 
 import { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { getWeather, searchCity } from './services/weatherApi.js';
 
 function weatherDescription(code) {
@@ -31,7 +32,17 @@ function App() {
   const [weather, setWeather] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [activeTab, setActiveTab] = useState('Overview');
+ const navigate = useNavigate();
+const location = useLocation();
+
+const routeToTab = {
+  '/': 'Overview',
+  '/forecast': 'Forecast',
+  '/intelligence': 'Intelligence',
+  '/alerts': 'Weather Alerts',
+};
+
+const activeTab = routeToTab[location.pathname] || 'Overview';
 
   async function loadWeather(cityName) {
     setLoading(true);
@@ -106,7 +117,17 @@ function App() {
               type="button"
               className={activeTab === tab ? 'nav-tab active' : 'nav-tab'}
               aria-current={activeTab === tab ? 'page' : undefined}
-              onClick={() => setActiveTab(tab)}
+            onClick={() =>
+  navigate(
+    tab === 'Overview'
+      ? '/'
+      : tab === 'Forecast'
+        ? '/forecast'
+        : tab === 'Intelligence'
+          ? '/intelligence'
+          : '/alerts'
+  )
+}
             >
               {tab}
             </button>
