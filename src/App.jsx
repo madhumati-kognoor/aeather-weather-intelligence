@@ -80,10 +80,10 @@ function App() {
   const tabs = ['Overview', 'Forecast', 'Intelligence', 'Weather Alerts'];
 
   return (
-    <main className={`weather-app ${atmosphereType}`}>
+    <main className={`weather-app ${atmosphereType} container-fluid`}>
       <div className="aether-atmosphere" aria-hidden="true" />
 
-      <div className="weather-card">
+      <div className="weather-card card">
         <header className="app-header">
           <div className="brand">
             <span className="brand-icon">✦</span>
@@ -129,12 +129,13 @@ function App() {
 
           <form className="search-form" onSubmit={handleSubmit}>
             <input
-              value={city}
-              onChange={(event) => setCity(event.target.value)}
-              placeholder="Search city..."
-              aria-label="Search city"
-            />
-            <button type="submit" disabled={loading}>
+  className="form-control"
+  value={city}
+  onChange={(event) => setCity(event.target.value)}
+  placeholder="Search city..."
+  aria-label="Search city"
+/>
+           <button type="submit" className="btn btn-primary" disabled={loading}>
               {loading ? 'Loading…' : 'Search'}
             </button>
           </form>
